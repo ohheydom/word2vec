@@ -54,20 +54,6 @@ class CorpusReader:
             if idx >= text_len:
                 self.location = 0
                 continue
-            if idx == 0:
-                while window <= self.window_size and idx+window <= text_len-1:
-                    l.append([self.dictionary[self.text[idx]], self.dictionary[self.text[idx+window]]])
-                    if len(l) == batch_size:
-                        return l
-                    window += 1
-                continue
-            if idx == text_len-1:
-                while window <= self.window_size and idx-window >= 0:
-                    l.append([self.dictionary[self.text[idx]], self.dictionary[self.text[idx-1-window]]])
-                    if len(l) == batch_size:
-                        return l
-                    window += 1
-                continue
             while window <= self.window_size and idx-window >= 0:
                 l.append([self.dictionary[self.text[idx]], self.dictionary[self.text[idx-window]]])
                 if len(l) == batch_size:
